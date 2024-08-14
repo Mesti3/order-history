@@ -1,0 +1,39 @@
+<div class="order-history">
+  <h1>Order history</h1>
+  <table-menu
+    (statusEvent)="onStatusChecked($event)"
+    (productLineEvent)="onProductLineChosen($event)"
+    (dateFromEvent)="onDateSelected($event)"
+    (dateToEvent)="onDateSelected($event)"
+    (searchEvent)="onSearchActivated($event)"
+  ></table-menu>
+
+  <div class="table-grid">
+    <!-- Check if rowListFiltered is not empty -->
+    <div *ngIf="rowListFiltered && rowListFiltered.length > 0; else noData">
+      <div class="table-grid-header">
+        <span>Status</span><span>Order number</span><span>Product Line</span
+        ><span>Product</span><span>Quantity</span><span>Date Requested</span>
+      </div>
+      <div *ngFor="let row of rowListFiltered">
+        <table-row
+          [status]="row.status"
+          [orderNumber]="row.orderNumber"
+          [productLine]="row.productLine"
+          [product]="row.product"
+          [quantity]="row.quantity"
+          [dateRequested]="row.dateRequested"
+        ></table-row>
+      </div>
+    </div>
+  </div>
+
+  <!-- Template to display when rowListFiltered is empty -->
+  <ng-template #noData>
+    <div class="no-data-message">
+      <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+      <h1>Nothing to display</h1>
+      <span>Please, adjust filters to see more results.</span>
+    </div>
+  </ng-template>
+</div>

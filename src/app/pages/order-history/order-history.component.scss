@@ -1,0 +1,48 @@
+.order-history {
+  width: 90%;
+  margin: auto;
+
+  h1 {
+    font-weight: 600;
+  }
+
+  .table-grid {
+    padding-top: 10px;
+
+    .table-grid-header {
+      display: flex;
+      flex-direction: row;
+      font-weight: 600;
+      span {
+        padding-left: 20px;
+        width: -webkit-fill-available;
+      }
+    }
+
+    div {
+      padding-top: 10px;
+    }
+  }
+
+  .no-data-message {
+    margin: 0 auto 0 auto;
+    width: fit-content;
+
+    span {
+      margin: auto;
+      width: 100%;
+
+      ::ng-deep svg {
+        width: 50px;
+        height: 50px;
+        margin: auto;
+      }
+    }
+  }
+
+  @media (max-width: 650px) {
+    .table-grid-header {
+      visibility: hidden;
+    }
+  }
+}
