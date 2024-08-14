@@ -1,0 +1,14 @@
+<div class="table-row">
+  <span>
+    <div
+      class="rectangle"
+      [ngStyle]="{ 'background-color': getColor(status()) }"
+    ></div>
+    {{ status() }}</span
+  >
+  <span>{{ orderNumber() }}</span>
+  <span>{{ productLine() }}</span>
+  <span>{{ product() }}</span>
+  <span>{{ quantity() }}</span>
+  <span>{{ dateRequested().toLocaleDateString() }}</span>
+</div>

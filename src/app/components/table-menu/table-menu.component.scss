@@ -1,0 +1,85 @@
+.table-menu {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 5px;
+
+  .table-status {
+    padding: 10px;
+
+    .table-status-group {
+      display: flex;
+      flex-direction: row;
+      .table-status-item {
+        padding: 5px;
+        width: max-content;
+
+        span {
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+
+  .table-product-line {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    min-width: 150px;
+
+    .table-product-line-select {
+      border: none;
+    }
+  }
+
+  .table-date {
+    display: flex;
+    flex-direction: row;
+    padding: 0 5px 0 5px;
+
+    .table-date-from,
+    .table-date-to {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      min-width: 140px;
+
+      .ant-picker {
+        border: none;
+        padding: 0;
+      }
+    }
+  }
+
+  .table-search {
+    display: flex;
+    height: fit-content;
+    margin: auto 0 auto auto;
+    justify-content: end;
+    padding: 10px;
+
+    ::ng-deep svg {
+      fill: aquamarine;
+    }
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .divider {
+    width: 2px;
+    height: 60%;
+    background-color: lightgray;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+
+    .table-search {
+      width: 100%;
+    }
+  }
+}
