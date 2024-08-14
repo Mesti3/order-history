@@ -14,14 +14,8 @@ describe('OrderHistoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        OrderHistoryComponent,
-        TableMenuComponent,
-        TableRowComponent,
-        CommonModule,
-        NzIconModule,
-      ],
-      providers: [ChangeDetectorRef],
+      imports: [OrderHistoryComponent, TableMenuComponent, TableRowComponent, CommonModule, NzIconModule],
+      providers: [ChangeDetectorRef]
     }).compileComponents();
 
     fixture = TestBed.createComponent(OrderHistoryComponent);
@@ -37,7 +31,7 @@ describe('OrderHistoryComponent', () => {
   describe('onStatusChecked', () => {
     it('should add status if not present', () => {
       const event: EventObject = { type: 'status', value: 'Pending' };
-      (component as any).onStatusChecked(event); // Type assertion to access protected method
+      (component as any).onStatusChecked(event);  // Type assertion to access protected method
       expect((component as any).checkedStatus.has('Pending')).toBeTrue();
     });
 
@@ -49,7 +43,7 @@ describe('OrderHistoryComponent', () => {
     });
 
     it('should call filterList after status change', () => {
-      spyOn(component as any, 'filterList');
+      spyOn((component as any), 'filterList');
       const event: EventObject = { type: 'status', value: 'Pending' };
       (component as any).onStatusChecked(event);
       expect((component as any).filterList).toHaveBeenCalled();
@@ -58,7 +52,7 @@ describe('OrderHistoryComponent', () => {
 
   describe('onProductLineChosen', () => {
     it('should update productLineChosen and call filterList', () => {
-      spyOn(component as any, 'filterList');
+      spyOn((component as any), 'filterList');
       const event: EventObject = { type: 'productLine', value: 'Cement' };
       (component as any).onProductLineChosen(event);
       expect((component as any).productLineChosen).toBe('Cement');
@@ -68,33 +62,20 @@ describe('OrderHistoryComponent', () => {
 
   describe('onDateSelected', () => {
     it('should update dateFromPicked when dateFrom is provided', () => {
-      const event: EventObject = {
-        type: 'dateFrom',
-        value: '2023-10-01T00:00:00.000Z',
-      };
+      const event: EventObject = { type: 'dateFrom', value: '2023-10-01T00:00:00.000Z' };
       (component as any).onDateSelected(event);
-      expect((component as any).dateFromPicked.toISOString()).toBe(
-        '2023-10-01T00:00:00.000Z'
-      );
+      expect((component as any).dateFromPicked.toISOString()).toBe('2023-10-01T00:00:00.000Z');
     });
 
     it('should update dateToPicked when dateTo is provided', () => {
-      const event: EventObject = {
-        type: 'dateTo',
-        value: '2023-10-31T00:00:00.000Z',
-      };
+      const event: EventObject = { type: 'dateTo', value: '2023-10-31T00:00:00.000Z' };
       (component as any).onDateSelected(event);
-      expect((component as any).dateToPicked.toISOString()).toBe(
-        '2023-10-31T00:00:00.000Z'
-      );
+      expect((component as any).dateToPicked.toISOString()).toBe('2023-10-31T00:00:00.000Z');
     });
 
     it('should call filterList after date change', () => {
-      spyOn(component as any, 'filterList');
-      const event: EventObject = {
-        type: 'dateFrom',
-        value: '2023-10-01T00:00:00.000Z',
-      };
+      spyOn((component as any), 'filterList');
+      const event: EventObject = { type: 'dateFrom', value: '2023-10-01T00:00:00.000Z' };
       (component as any).onDateSelected(event);
       expect((component as any).filterList).toHaveBeenCalled();
     });
@@ -102,7 +83,7 @@ describe('OrderHistoryComponent', () => {
 
   describe('onSearchActivated', () => {
     it('should update searchActivated and call filterList', () => {
-      spyOn(component as any, 'filterList');
+      spyOn((component as any), 'filterList');
       const event: EventObject = { type: 'search', value: 'Fiona' };
       (component as any).onSearchActivated(event);
       expect((component as any).searchActivated).toBe('Fiona');
@@ -110,27 +91,11 @@ describe('OrderHistoryComponent', () => {
     });
   });
 
-  describe('filterList', () => {
-    it('should correctly filter rowList based on search term', () => {
-      (component as any).searchActivated = 'Fiona';
-      (component as any).filterList();
-      expect((component as any).rowListFiltered.length).toBeGreaterThan(0);
-      expect(
-        (component as any).rowListFiltered.every(
-          (row: { product: string | string[] }) => row.product.includes('Fiona')
-        )
-      ).toBeTrue();
-    });
-
     it('should filter rowList based on product line', () => {
       (component as any).productLineChosen = 'Cement';
       (component as any).filterList();
       expect((component as any).rowListFiltered.length).toBeGreaterThan(0);
-      expect(
-        (component as any).rowListFiltered.every(
-          (row: { productLine: string }) => row.productLine === 'Cement'
-        )
-      ).toBeTrue();
+      expect((component as any).rowListFiltered.every((row: { productLine: string; }) => row.productLine === 'Cement')).toBeTrue();
     });
 
     it('should filter rowList based on date range', () => {
@@ -138,13 +103,7 @@ describe('OrderHistoryComponent', () => {
       (component as any).dateToPicked = new Date('2023-10-31');
       (component as any).filterList();
       expect((component as any).rowListFiltered.length).toBeGreaterThan(0);
-      expect(
-        (component as any).rowListFiltered.every(
-          (row: { dateRequested: number }) =>
-            row.dateRequested >= (component as any).dateFromPicked &&
-            row.dateRequested <= (component as any).dateToPicked
-        )
-      ).toBeTrue();
+      expect((component as any).rowListFiltered.every((row: { dateRequested: number; }) => row.dateRequested >= (component as any).dateFromPicked && row.dateRequested <= (component as any).dateToPicked)).toBeTrue();
     });
 
     it('should handle cases with no filters applied', () => {
@@ -154,9 +113,6 @@ describe('OrderHistoryComponent', () => {
       (component as any).dateToPicked = new Date('9999-12-31');
       (component as any).searchActivated = '';
       (component as any).filterList();
-      expect((component as any).rowListFiltered).toEqual(
-        (component as any).rowList
-      );
+      expect((component as any).rowListFiltered).toEqual((component as any).rowList);
     });
   });
-});

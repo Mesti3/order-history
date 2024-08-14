@@ -237,7 +237,7 @@ export class OrderHistoryComponent {
       );
     } else {
       this.rowListFiltered = this.rowList.filter((row) =>
-        row.product.includes(this.searchActivated)
+        row.orderNumber.toString().includes(this.searchActivated)
       );
     }
     this.changeRef.detectChanges();
